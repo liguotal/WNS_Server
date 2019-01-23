@@ -59,18 +59,38 @@ class WnsController extends BaseController {
         let timestamp = Math.round(new Date().getTime()/1000).toString();
         let plaintext = wnsConst.appId + '&' + timestamp;
         let sign = tool.signString(plaintext, wnsConst.secretkey)
-       
+        let wid = req.query.wid
+        let content = req.query.content
+        let plat = req.query.plat || 0
+        var tag = req.query.tag || '1'
+        
+        if (!wid) {
+            res.send({
+                code: '201',
+                msg:'wid参数不能为空'
+            })
+            return
+        }
+
+        if (!content) {
+            res.send({
+                code: '201',
+                msg:'content参数不能为空'
+            })
+            return
+        }
+
         let params = {
             appid : wnsConst.appId,
             secretid: wnsConst.secretId,
             sign: sign,
             tm: timestamp,
-            wid: 243191873,
-            plat: 0,
-            tag: 1,
-            content: 'nihao'
+            wid: wid,
+            plat: plat,
+            tag: tag,
+            content: content
         }
-        
+
         request({
             url: api.sendMsgNewUrl,
             method: "POST",
