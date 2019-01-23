@@ -1,5 +1,5 @@
 module.exports = {
-    secretkey: 'uhLn33rRoxsc9SXNwHNGxRghXAZptoY4',
-    secretId: 'AKIDxjGftvGIfolZBbkiOr42HJ7g2A6oJD7m',
-    appId: 204087
+    secretkey: 'HSZV0Lx11sZJN5wTq6VflmmYMzEA0hQ9',
+    secretId: 'AKID43nMpCHDSbdbP1FRRNfr5QdlneTvoMUk',
+    appId: 204085
 }
