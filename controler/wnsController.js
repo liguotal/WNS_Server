@@ -66,7 +66,7 @@ class WnsController extends BaseController {
             secretid: wnsConst.secretId,
             sign: sign,
             tm: timestamp,
-            wid: 243191873,
+            uid: 123456,
             plat: 0,
             tag: 1,
             content: 'nihao'
