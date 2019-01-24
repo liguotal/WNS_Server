@@ -15,14 +15,16 @@ class WnsController extends BaseController {
         let timestamp = Math.round(new Date().getTime()/1000).toString();
         let plaintext = wnsConst.appId + '&' + timestamp;
         let sign = tool.signString(plaintext, wnsConst.secretkey)
-        let widArr = ['243191873']
+        let widArr = ['6720119175475286081']
+        let wid = JSON.stringify(widArr)
+        console.log(wid)
 
         let requestData = {
             appid : wnsConst.appId,
             secretid: wnsConst.secretId,
             sign: sign,
             tm: timestamp,
-            wid: JSON.stringify(widArr)
+            wid: '6720119175475286081'
         }
        
         console.log(requestData)
@@ -31,11 +33,10 @@ class WnsController extends BaseController {
             url: api.getOnelineStatusUrl,
             method: "POST",
             json: true,
-            formData: requestData,
+            body: requestData,
             headers: {
                 "content-type": "application/json",
             },
-            // body: requestData
         }, function(error, response, body) {
             if (!error) {
                 res.send(
@@ -63,11 +64,12 @@ class WnsController extends BaseController {
         let content = req.query.content
         let plat = req.query.plat || 0
         var tag = req.query.tag || '1'
-        
-        if (!wid) {
+        let uid = req.query.uid
+
+        if (!wid && !uid) {
             res.send({
                 code: '201',
-                msg:'wid参数不能为空'
+                msg:'wid和uid参数必须存在一个'
             })
             return
         }
@@ -85,10 +87,17 @@ class WnsController extends BaseController {
             secretid: wnsConst.secretId,
             sign: sign,
             tm: timestamp,
-            wid: wid,
             plat: plat,
             tag: tag,
             content: content
+        }
+
+        if (wid) {
+            params['wid'] = wid
+        }
+
+        if (uid) {
+            params['uid'] = uid
         }
 
         request({
@@ -110,7 +119,7 @@ class WnsController extends BaseController {
                 console.log(response.statusCode)
                 res.send({
                     code : 201,
-                    msg: '失败了123'
+                    msg: '失败了'
                 })
             }
         });
