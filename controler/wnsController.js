@@ -15,18 +15,34 @@ class WnsController extends BaseController {
         let timestamp = Math.round(new Date().getTime()/1000).toString();
         let plaintext = wnsConst.appId + '&' + timestamp;
         let sign = tool.signString(plaintext, wnsConst.secretkey)
-        let widArr = ['6720119175475286081']
-        let wid = JSON.stringify(widArr)
-        console.log(wid)
+        let timestampInt = parseInt(timestamp)
+        let wid = req.query.wid
+        let uid = req.query.uid
+
+        
+
+        if (!wid && !uid) {
+            res.send({
+                code: '201',
+                msg:'wid和uid参数必须存在一个'
+            })
+            return
+        }
 
         let requestData = {
             appid : wnsConst.appId,
             secretid: wnsConst.secretId,
             sign: sign,
-            tm: timestamp,
-            wid: '6720119175475286081'
+            tm: timestampInt,
         }
-       
+
+        if (wid) {
+            params['wid'] = JSON.parse(wid)
+        }
+
+        if (uid) {
+            params['uid'] = JSON.parse(uid)
+        }
         console.log(requestData)
 
         request({
@@ -131,24 +147,21 @@ class WnsController extends BaseController {
         let timestamp = Math.round(new Date().getTime()/1000).toString();
         let plaintext = wnsConst.appId + '&' + timestamp;
         let sign = tool.signString(plaintext, wnsConst.secretkey)
+        let timestampInt = parseInt(timestamp)
+        let status = req.query.status
+        var statusJson = JSON.parse(status)
 
-        let requestData = {
+        let params = {
             appid : wnsConst.appId,
             secretid: wnsConst.secretId,
             sign: sign,
-            tm: timestamp,
-            status: [
-                {
-                    '123456': [
-                        {wid1 : 243191873}
-                    ]
-                }
-            ]
+            tm: timestampInt,
+            status: statusJson
         }
-       
         request({
             url: api.notifyOnlineStatusUrl,
             method: "POST",
+            body: params,
             json: true,
             headers: {
                 "content-type": "application/json",
