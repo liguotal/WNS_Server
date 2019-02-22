@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 router.post('/',function(req, res, next) {
-  console.log(req.toJSONString()+'ceshi1')
+  console.log(JSON.stringify(req)+'ceshi1')
   console.log(JSON.stringify(req.headers)+'ceshi1')
   console.log(JSON.stringify(req.header)+'ceshi1')
   console.log(JSON.stringify(req.query)+'ceshi1')
