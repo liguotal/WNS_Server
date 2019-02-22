@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 router.post('/',function(req, res, next) {
   console.log(JSON.stringify(req.body)+'ceshi1')
   console.log(JSON.stringify(req.headers)+'ceshi1')
+  console.log(JSON.stringify(req.header)+'ceshi1')
   console.log(JSON.stringify(req.query)+'ceshi1')
   res.send('respond with a resourcepost2');
 });
