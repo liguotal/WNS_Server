@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
 });
 router.post('/',function(req, res, next) {
   console.log(JSON.stringify(req.body)+'ceshi1')
+  console.log(JSON.stringify(req)+'ceshi1')
   res.send('respond with a resourcepost2');
 });
 module.exports = router;
