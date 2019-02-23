@@ -39,7 +39,7 @@ var server = net.createServer(function (socket){
       });
       socket.write("朋友，你好.\n");
   });
-  server.listen(80,function(){
+  server.listen(8000,function(){
       console.log('绑定服务器80端口');
   });
 
