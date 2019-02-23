@@ -28,20 +28,20 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-var server = net.createServer(function (socket){
-  //新的连接；
-      socket.on('data',function(data){
-          console.log(JSON.stringify(data))
-          socket.write("你好");
-      });
-      socket.on('end',function(data){
-          console.log('连接断开');
-      });
-      socket.write("朋友，你好.\n");
-  });
-  server.listen(8000,function(){
-      console.log('绑定服务器80端口');
-  });
+// var server = net.createServer(function (socket){
+//   //新的连接；
+//       socket.on('data',function(data){
+//           console.log(JSON.stringify(data))
+//           socket.write("你好");
+//       });
+//       socket.on('end',function(data){
+//           console.log('连接断开');
+//       });
+//       socket.write("朋友，你好.\n");
+//   });
+//   server.listen(8000,function(){
+//       console.log('绑定服务器80端口');
+//   });
 
 
 // error handler
