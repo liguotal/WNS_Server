@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var wnsRouter = require('./routes/wns');
 var app = express();
-
+var net = require("net")
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -27,6 +27,22 @@ app.listen(8090);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+var server = net.createServer(function (socket){
+  //新的连接；
+      socket.on('data',function(data){
+          console.log(JSON.stringify(data))
+          socket.write("你好");
+      });
+      socket.on('end',function(data){
+          console.log('连接断开');
+      });
+      socket.write("朋友，你好.\n");
+  });
+  server.listen(4001,function(){
+      console.log('绑定服务器8000端口');
+  });
+
 
 // error handler
 app.use(function(err, req, res, next) {
