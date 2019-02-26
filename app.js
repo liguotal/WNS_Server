@@ -22,7 +22,7 @@ app.set('view engine', 'pug');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/wns',wnsRouter);
-app.listen(8090);
+// app.listen(8090);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
